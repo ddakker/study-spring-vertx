@@ -8,6 +8,7 @@ import io.vertx.core.Vertx;
 import pe.kr.ddakker.study.config.AppContext;
 import pe.kr.ddakker.study.verticle.DelayExecVerticle;
 import pe.kr.ddakker.study.verticle.ServerVerticle;
+import pe.kr.ddakker.study.verticle.SockjsVerticle;
 
 public class Server {
 	public static void main(String[] args) {
@@ -17,6 +18,6 @@ public class Server {
 		//vertx.deployVerticle(new DelayExecVerticle(), new DeploymentOptions().setWorker(true).setInstances(10));
 		vertx.deployVerticle(DelayExecVerticle.class.getName(), new DeploymentOptions().setWorker(true).setInstances(10));
 		vertx.deployVerticle(new ServerVerticle());
-		// 1
+		vertx.deployVerticle(new SockjsVerticle());
 	}
 }

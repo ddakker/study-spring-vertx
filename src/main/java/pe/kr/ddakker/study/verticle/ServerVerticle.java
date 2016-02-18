@@ -30,7 +30,11 @@ public class ServerVerticle extends AbstractVerticle {
 						log.error("FF result.cause().toString(): " + result.cause().toString());
 					}
 				});*/
-				vertx.eventBus().<String> send(DelayExecVerticle.ALL_PRODUCTS_ADDRESS, message);
+				
+				//vertx.eventBus().<String> send(DelayExecVerticle.ALL_PRODUCTS_ADDRESS, message);
+				
+				//vertx.eventBus().<String> send("chat.to.server", ": 테스트여 00");
+				vertx.eventBus().send("chat.to.server", message);
 
 			}));
 
