@@ -17,5 +17,6 @@ public class Server {
 		//vertx.deployVerticle(new DelayExecVerticle(), new DeploymentOptions().setWorker(true).setInstances(10));
 		vertx.deployVerticle(DelayExecVerticle.class.getName(), new DeploymentOptions().setWorker(true).setInstances(10));
 		vertx.deployVerticle(new ServerVerticle());
+		// 1
 	}
 }
