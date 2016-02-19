@@ -13,7 +13,6 @@ jar {
 
 repositories {
 	maven { url mavenRepositoryUrl + "/content/groups/public/" }
-    mavenCentral()
 }
 
 List loggerSlf4jAndLogback = [
@@ -31,10 +30,7 @@ dependencies {
 	compile 'org.springframework:spring-beans:4.2.4.RELEASE'
 	compile 'org.springframework:spring-context:4.2.4.RELEASE'
 	
-	compile("org.ninedragon:apm-ext-lib:1.0.1-SNAPSHOT")
-	compile("io.vertx:vertx-web:3.2.1") {
-	 	exclude group: 'io.netty'
-	}
+	compile  'io.vertx:vertx-web:3.2.1'
 
     compile group: 'commons-collections', name: 'commons-collections', version: '3.2'
     testCompile group: 'junit', name: 'junit', version: '4.+'
