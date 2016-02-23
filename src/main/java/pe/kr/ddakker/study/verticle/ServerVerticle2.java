@@ -6,8 +6,8 @@ import org.slf4j.LoggerFactory;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.parsetools.RecordParser;
 
-public class ServerVerticle extends AbstractVerticle {
-	private static Logger log = LoggerFactory.getLogger(ServerVerticle.class);
+public class ServerVerticle2 extends AbstractVerticle {
+	private static Logger log = LoggerFactory.getLogger(ServerVerticle2.class);
 	
 	@Override
 	public void start() throws Exception {
@@ -34,10 +34,10 @@ public class ServerVerticle extends AbstractVerticle {
 				//vertx.eventBus().<String> send(DelayExecVerticle.ALL_PRODUCTS_ADDRESS, message);
 				
 				//vertx.eventBus().<String> send("chat.to.server", ": 테스트여 00");
-				vertx.eventBus().send("chat.to.server", "Verticle1: " + message);
+				vertx.eventBus().send("chat.to.server", "Verticle2: " + message);
 
 			}));
 
-		}).listen(9999);
+		}).listen(9998);
 	}
 }

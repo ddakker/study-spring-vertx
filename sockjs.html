@@ -50,10 +50,11 @@ eb.onopen = function () {
   });
 }; */
 
-	var eb = new EventBus("http://localhost:8080/eventbus/");
+	var eb = new EventBus("http://localhost:9090/eventbus/");
 	eb.onopen = function() {
 		eb.registerHandler("chat.to.client", function(err, msg) {
-			$('#chat').html(msg.body + "\n");
+			//$('#chat').html(msg.body + "\n");
+			$('#chat').prepend(msg.body + "\n");
 			
 			if (msg.body.indexOf("ddd") > -1) {
 				$('#error').append(msg.body + "<br/>");
