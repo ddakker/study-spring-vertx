@@ -81,8 +81,8 @@ public class SockjsVerticle extends AbstractVerticle {
 		// Register to listen for messages coming IN to the server
 		//eb.consumer("chat.to.server").handler(message -> {
 		eb.consumer("chat.to.server", (Message<String> message) -> {
-			log.debug("---- message: " + message);
-			log.debug("---- message.body(): " + message.body());
+			//log.debug("---- message: " + message);
+			//log.debug("---- message.body(): " + message.body());
 			// Create a timestamp string
 			String timestamp = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM)
 					.format(Date.from(Instant.now()));
