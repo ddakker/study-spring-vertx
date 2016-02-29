@@ -42,7 +42,7 @@ public class ServerVerticle extends AbstractVerticle {
 				//vertx.eventBus().<String> send(DelayExecVerticle.ALL_PRODUCTS_ADDRESS, message);
 				
 				//vertx.eventBus().<String> send("chat.to.server", ": 테스트여 00");
-				vertx.eventBus().send("chat.to.server", "Verticle1: " + message);
+				vertx.eventBus().send(SockjsVerticle.BUS_SOCKJS_SERVER, message);
 
 			}));
 			socket.closeHandler(v -> {

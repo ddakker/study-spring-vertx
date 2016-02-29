@@ -21,6 +21,8 @@ import io.vertx.ext.web.handler.sockjs.SockJSHandler;
 
 public class SockjsVerticle extends AbstractVerticle {
 	private static Logger log = LoggerFactory.getLogger(SockjsVerticle.class);
+	public static final String BUS_SOCKJS_SERVER = "bus.sockjs.server";
+	public static final String BUS_SOCKJS_CLIENT = "bus.sockjs.client";
 	
 	private static final OperatingSystemMXBean osMBean;
 
@@ -63,8 +65,8 @@ public class SockjsVerticle extends AbstractVerticle {
 
 		// Allow events for the designated addresses in/out of the event bus bridge
 		BridgeOptions opts = new BridgeOptions()
-				.addInboundPermitted(new PermittedOptions().setAddress("chat.to.server"))
-				.addOutboundPermitted(new PermittedOptions().setAddress("chat.to.client"));
+				.addInboundPermitted(new PermittedOptions().setAddress(SockjsVerticle.BUS_SOCKJS_SERVER))
+				.addOutboundPermitted(new PermittedOptions().setAddress(SockjsVerticle.BUS_SOCKJS_CLIENT));
 
 		// Create the event bus bridge and add it to the router.
 		SockJSHandler ebHandler = SockJSHandler.create(vertx).bridge(opts);
@@ -80,14 +82,14 @@ public class SockjsVerticle extends AbstractVerticle {
 
 		// Register to listen for messages coming IN to the server
 		//eb.consumer("chat.to.server").handler(message -> {
-		eb.consumer("chat.to.server", (Message<String> message) -> {
+		eb.consumer(SockjsVerticle.BUS_SOCKJS_SERVER, (Message<String> message) -> {
 			//log.debug("---- message: " + message);
 			//log.debug("---- message.body(): " + message.body());
 			// Create a timestamp string
 			String timestamp = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM)
 					.format(Date.from(Instant.now()));
 			// Send the message back out to all clients with the timestamp prepended.
-			eb.publish("chat.to.client", message.body());
+			eb.publish(SockjsVerticle.BUS_SOCKJS_CLIENT, message.body());
 		});
 
 	}
