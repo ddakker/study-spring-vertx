@@ -24,40 +24,7 @@ public class SockjsVerticle extends AbstractVerticle {
 	public static final String BUS_SOCKJS_SERVER = "bus.sockjs.server";
 	public static final String BUS_SOCKJS_CLIENT = "bus.sockjs.client";
 	
-	private static final OperatingSystemMXBean osMBean;
 
-	static {
-		try {
-			osMBean = ManagementFactory.newPlatformMXBeanProxy(ManagementFactory.getPlatformMBeanServer(),
-					ManagementFactory.OPERATING_SYSTEM_MXBEAN_NAME, OperatingSystemMXBean.class);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	/*@Override
-	public void start() {
-
-		Router router = Router.router(vertx);
-		
-		SockJSHandlerOptions options = new SockJSHandlerOptions().setHeartbeatInterval(2000);
-
-		SockJSHandler sockJSHandler = SockJSHandler.create(vertx, options).bridge(new BridgeOptions().addOutboundPermitted(new PermittedOptions().setAddress("load")));
-		router.route("/eventbus/*").handler(sockJSHandler);
-		
-		sockJSHandler.socketHandler(sockJSSocket -> {
-			sockJSSocket.handler(sockJSSocket::write);
-		});
-
-		vertx.createHttpServer().requestHandler(router::accept).listen(8080);
-		router.route().handler(sockJSHandler);
-
-
-		vertx.setPeriodic(1000, t -> vertx.eventBus().publish("load", new JsonObject()
-				.put("creatTime", System.currentTimeMillis()).put("cpuTime", osMBean.getSystemLoadAverage())));
-		
-		
-	}*/
 	@Override
 	public void start() throws Exception {
 
@@ -84,10 +51,9 @@ public class SockjsVerticle extends AbstractVerticle {
 		//eb.consumer("chat.to.server").handler(message -> {
 		eb.consumer(SockjsVerticle.BUS_SOCKJS_SERVER, (Message<String> message) -> {
 			//log.debug("---- message: " + message);
-			//log.debug("---- message.body(): " + message.body());
+			log.debug("---- Sockjs message.body(): " + message.body());
 			// Create a timestamp string
-			String timestamp = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM)
-					.format(Date.from(Instant.now()));
+			//String timestamp = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM).format(Date.from(Instant.now()));
 			// Send the message back out to all clients with the timestamp prepended.
 			eb.publish(SockjsVerticle.BUS_SOCKJS_CLIENT, message.body());
 		});

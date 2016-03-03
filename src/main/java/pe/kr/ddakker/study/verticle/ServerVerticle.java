@@ -42,6 +42,9 @@ public class ServerVerticle extends AbstractVerticle {
 				//vertx.eventBus().<String> send(DelayExecVerticle.ALL_PRODUCTS_ADDRESS, message);
 				
 				//vertx.eventBus().<String> send("chat.to.server", ": 테스트여 00");
+				if (message.contains("grp_was_req") && message.contains("edTime")) {
+					vertx.eventBus().send(DelayExecVerticle.BUS_DELAY_TPS, message);
+				}
 				vertx.eventBus().send(SockjsVerticle.BUS_SOCKJS_SERVER, message);
 
 			}));

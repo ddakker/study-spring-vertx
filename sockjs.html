@@ -52,7 +52,7 @@ eb.onopen = function () {
 
 	var eb = new EventBus("http://localhost:9090/eventbus/");
 	eb.onopen = function() {
-		eb.registerHandler("chat.to.client", function(err, msg) {
+		eb.registerHandler("bus.sockjs.client", function(err, msg) {
 			//$('#chat').html(msg.body + "\n");
 			$('#chat').prepend(msg.body + "\n");
 			

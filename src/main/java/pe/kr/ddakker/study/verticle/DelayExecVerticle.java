@@ -1,5 +1,6 @@
 package pe.kr.ddakker.study.verticle;
 
+import com.ezwel.core.support.util.JsonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -8,10 +9,15 @@ import io.vertx.core.Handler;
 import io.vertx.core.eventbus.Message;
 import io.vertx.core.json.JsonObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class DelayExecVerticle extends AbstractVerticle {
 	private static Logger log = LoggerFactory.getLogger(DelayExecVerticle.class);
-	
+
+
 	public static final String ALL_PRODUCTS_ADDRESS = "example.all.products";
+	public static final String BUS_DELAY_TPS = "bus.delay.tps";
 
 	@Override
 	public void start() throws Exception {
@@ -32,6 +38,13 @@ public class DelayExecVerticle extends AbstractVerticle {
 
 			//message.reply(messageData + " End");
 
+		});
+
+		vertx.eventBus().consumer(BUS_DELAY_TPS, (Message<String> message) -> {
+			String messageData = message.body();
+			Map msgMap = JsonUtils.toJson(messageData, HashMap.class);
+
+			log.info(BUS_DELAY_TPS + ": " + messageData + ", msgMap: " + msgMap);
 		});
 	}
 

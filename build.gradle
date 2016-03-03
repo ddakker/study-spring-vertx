@@ -6,6 +6,7 @@ ext {
     javaVersion 				= '1.8'
     javaEncoding 				= 'UTF-8'
     gradleVersion               = '2.10'
+    ezwelVersion	            = '+'
 }
 
 [compileJava, compileTestJava]*.options*.encoding = javaEncoding
@@ -38,6 +39,8 @@ dependencies {
 	
 	compile 'org.springframework:spring-beans:4.2.4.RELEASE'
 	compile 'org.springframework:spring-context:4.2.4.RELEASE'
+
+    compile "com.ezwel:ezwel-core-support:$ezwelVersion"
 	
 	compile  'io.vertx:vertx-web:3.2.1'
 

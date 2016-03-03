@@ -6,10 +6,12 @@
 			<pattern>%d [%-5level] [%thread] %logger{40}[%class{20}][%method:%line] - %msg %n</pattern>
 		</encoder>
 	</appender>
+
+
 	
 
 
-	<root level="DEBUG">
+	<root level="INFO">
 		<appender-ref ref="STDOUT" />
 	</root>
 </configuration>
